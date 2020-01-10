@@ -1,0 +1,46 @@
+export default class GuardianInfo{
+  constructor(){
+
+    this.stuGuardianId=0;
+    this.stuGuardianName="";
+    this.stuGuardianRelation="";
+    this.stuGuardianPhone="";
+    this.stuGuardianMobile="";
+    this.stuGuardianEmail="";
+    this.stuGuardianHomeAddress=""
+    this.stuGuardianOfficeAddress="";
+    this.stuGuardianOccupation="";
+    this.stuGuardianIncome=0;
+  }
+}
+/*{
+  "stuCollegeId":"10",
+  "stuEnroll":"01",
+  "stuTitle":"Mr.",
+  "stuFirstname":"test1",
+  "stuMiddlename":"tt",
+  "stuLastname":"test1",
+  "stuGender":"Male",
+  "stuDob":"2000-12-31T18:30:00.000Z",
+  "stuEmail":"tt@tt.co",
+  "stuBloodgroup":"-",
+  "stuReligion":"Hindu",
+  "stuMobile":"10101010",
+  "stuNationality":"Indian",
+  "stuCategory":"Open",
+  "studentFatherFname":"ff",
+  "studentFatherMname":"ff",
+  "studentFatherLname":"ll",
+  "studentFatherOccupation":"",
+  "studentFatherContact":"10101010",
+  "studentFatherAnnualIncome":"10",
+  "studentMotherFname":"ff",
+  "studentMotherMname":"ff",
+  "studentMotherLname":"ll",
+  "fDeptName":"CE",
+  "fBatchName":"A",
+  "fCourseName":"BE",
+  "fClassName":"I",
+  "stuAdmissiondate":"2018-10-29T06:47:58.054Z"
+}
+*/

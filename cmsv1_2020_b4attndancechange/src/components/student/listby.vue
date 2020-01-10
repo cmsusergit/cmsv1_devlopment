@@ -1,0 +1,97 @@
+<template>
+  <div class="is-radiusless box">
+    <b-field grouped>
+      <b-field label="Department" expanded>
+        <b-select @input='deptChanged' v-model="dept" expanded>
+          <option>All</option>
+          <option v-for="dd in departmentList" :value="dd.deptId">{{dd.deptName}}</option>
+        </b-select>
+      </b-field>
+
+
+
+      <b-field label="Course" expanded>
+        <b-select @input='courseChanged' v-model="course" expanded>
+          <option>All</option>
+          <option v-for="cc in courseList" :value="cc.courseId">{{cc.courseAlias}}</option>
+        </b-select>
+      </b-field>
+      <b-field label="Sem" expanded>
+          <b-select @input="currSemChanged" v-model="currSem" expanded>
+            <option>All</option>
+            <option v-for="indx in 10">{{indx}}</option>
+          </b-select>
+      </b-field>
+    </b-field>
+    <p class="is-size-5 has-text-weight-bold" style="text-decoration:underline" v-if="disableAllOption">Allocate To</p>
+    <b-field grouped>
+      <b-field label="Class" expanded>
+        <b-select @input="classChanged" v-model="className" expanded>
+          <option v-if="!disableAllOption">All</option>
+          <option v-for="temp in classList" :value="temp.classId">{{temp.className}}</option>
+        </b-select>
+      </b-field>
+      <b-field label="Batch" expanded>
+          <b-select @input="batchChanged" v-model="batchName" expanded>
+            <option v-if="!disableAllOption">All</option>
+            <option v-for="temp in batchList" :value="temp.batchId">{{temp.batchName}}</option>
+          </b-select>
+      </b-field>
+    </b-field>
+  </div>
+</template>
+<script>
+import {mapState} from 'vuex'
+export default {
+  name:"listby",
+  props: ['disableAllOption'],
+  data(){
+    return {
+      currSem:"All",
+      dept:"All",
+      className:"All",
+      course:"All",
+      batchName:"All"
+    }
+  },
+  computed:{
+    ...mapState([    //....
+    'departmentList',
+    'courseList',
+    'classList'
+  ]),
+  batchList(){
+    return this.$store.state.classStore.batchList
+  }
+  },
+  created(){
+    this.$store.dispatch('load_dept_list')
+    this.$store.dispatch('load_class_list_by_dept', this.dept);
+    this.$store.dispatch('load_course_list')
+  },
+  methods:{
+    currSemChanged(value){
+      this.$emit('currSemChanged',value)
+    },
+    classChanged(value){
+      this.batchName=''
+      if(!this.className || this.className=='')return
+      this.$emit('classChanged',value)
+      this.$store.dispatch('classStore/load_batch_list_by_classid',value)
+    },
+    deptChanged(value){
+      this.$emit('deptChanged',value)
+      this.className=''
+      this.$store.dispatch('load_class_list_by_dept', this.dept);
+    },
+    batchChanged(value){
+      this.$emit('batchChanged',value)
+    },
+    courseChanged(value){
+      this.$emit('courseChanged',value)
+    }
+  }
+}
+</script>
+<style>
+</style>
